@@ -1,75 +1,56 @@
-# React + TypeScript + Vite
+# Novacrust
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Novacrust is a modern, React-based widget application designed for seamless crypto-fiat operations. It provides an intuitive interface for exchanging cryptocurrency to cash, with planned support for cash-to-crypto conversions and crypto-backed loans.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Crypto to Cash:** A functional form to calculate and initiate crypto-to-fiat exchanges. (Screen 1)
+- **Cash to Crypto:** (Coming Soon) A placeholder interface for future implementation. (Screen 2)
+- **Crypto to Fiat Loan:** (Coming Soon) A placeholder interface for future implementation. (Screen 3)
+- **Responsive Design:** Built with Tailwind CSS for a fully responsive and modern UI.
+- **Form Validation:** Form handling using React Hook Form and Zod.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Framework:** [React 19](https://react.dev/) with [Vite](https://vitejs.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components:** [shadcn/ui](https://ui.shadcn.com/) (Radix UI)
+- **Icons:** [Lucide React](https://lucide.dev/), [Ant Design Web3 Icons](https://web3.ant.design/), [React Country Flag](https://www.npmjs.com/package/react-country-flag)
+- **Form Management:** [React Hook Form](https://react-hook-form.com/)
+- **Validation:** [Zod](https://zod.dev/)
 
-Note: This will impact Vite dev & build performances.
+## Setup Instructions
 
-## Expanding the ESLint configuration
+1.  **Clone the repository:**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+    ```bash
+    git clone https://github.com/peterintech/assesment_crust.git
+    cd assesment_crust
+    ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2.  **Install dependencies:**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+    ```bash
+    npm install
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3.  **Run the development server:**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    ```bash
+    npm run dev
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    The application will be available at `http://localhost:5173` (or the port shown in your terminal).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4.  **Build for production:**
+
+    ```bash
+    npm run build
+    ```
+
+## Assumptions & Trade-offs
+
+- **Mocked Backend:** The application currently operates as a frontend-only prototype. Form submissions (e.g., in the "Crypto to Cash" tab) are mocked and display an alert with the submitted data instead of making actual API calls.
+- **Hardcoded Data:** Currency lists (crypto tokens, fiat currencies) and payment methods are currently hardcoded in `src/data/index.tsx` for demonstration purposes. In a real-world scenario, these would likely be fetched from an API.
+- **`Clash Display` Font Famiy Not Found:** The `Clash Display` font-family used for the "Coming Soon" text in the `cash to crypto` and `crypto to fiat loan` is not on google fonts, i defaulted to `Outfit` font
