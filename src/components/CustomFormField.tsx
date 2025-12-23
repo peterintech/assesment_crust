@@ -119,7 +119,7 @@ const RenderField = <T extends FieldValues>({
       return (
         <FormControl>
           <Select value={field.value} onValueChange={field.onChange}>
-            <SelectTrigger className="px-6 h-15! rounded-full bg-white border border-gray-200 w-full shadow-none">
+            <SelectTrigger className="px-6 h-15! rounded-full bg-white border border-gray-200 w-full shadow-none overflow-hidden">
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent className="rounded-4xl px-2 py-3 shadow-none">
