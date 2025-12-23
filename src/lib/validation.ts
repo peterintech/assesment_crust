@@ -9,3 +9,7 @@ export const CryptoExchangeSchema = z.object({
   payFrom: z.string().min(1, "Please select a source"),
   payTo: z.string().min(1, "Please select a destination"),
 });
+
+export const ComingSoonSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});

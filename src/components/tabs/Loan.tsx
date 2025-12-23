@@ -1,5 +1,7 @@
+import CashToCrypto from "./CashToCrypto";
+
 const Loan = () => {
-  return <div>Loan</div>;
+  return <CashToCrypto />;
 };
 
 export default Loan;

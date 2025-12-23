@@ -1,6 +1,6 @@
 import type { Control, FieldValues, Path } from "react-hook-form";
 
-type FormFieldType = "input" | "select" | "cryptoAmount";
+type FormFieldType = "text" | "select" | "cryptoAmount";
 
 interface CurrencyOption {
   value: string;

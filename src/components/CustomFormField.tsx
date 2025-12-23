@@ -142,12 +142,19 @@ const RenderField = <T extends FieldValues>({
         </FormControl>
       );
 
-    default:
+    case "text":
       return (
         <FormControl>
-          <Input {...field} placeholder={placeholder} className="" />
+          <Input
+            className="px-6 h-15 rounded-full"
+            {...field}
+            placeholder={placeholder}
+          />
         </FormControl>
       );
+
+    default:
+      return null;
   }
 };
 
