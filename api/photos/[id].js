@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     // Fetch from jsonplaceholder
     const response = await fetch(
-      `https://jsonplaceholder.typicode.com/photos/${id}`,
+      `https://api.slingacademy.com/v1/sample-data/photos/${id}`,
     );
 
     if (!response.ok) {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const template = fs.readFileSync(templatePath, "utf-8");
 
     // Inject meta tags
-    const metaTags = generateMetaTags(photo);
+    const metaTags = generateMetaTags(photo.photo);
     const html = template.replace("<!--ssr-meta-tags-->", metaTags);
 
     res.setHeader("Content-Type", "text/html");
@@ -50,8 +50,7 @@ function generateMetaTags(photo) {
 
   const title = escape(photo.title);
   const image = escape(photo.url);
-  const thumbnail = escape(photo.thumbnailUrl);
-  const description = `Photo #${photo.id} from Album #${photo.albumId}`;
+  const description = `Photo #${photo.description}`;
 
   return `
     <title>${title}</title>
@@ -69,6 +68,6 @@ function generateMetaTags(photo) {
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:title"       content="${title}" />
     <meta name="twitter:description" content="${description}" />
-    <meta name="twitter:image"       content="${thumbnail}" />
+    <meta name="twitter:image"       content="${image}" />
   `;
 }

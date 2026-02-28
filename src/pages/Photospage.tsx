@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 
 interface Photo {
-  id: number;
-  albumId: number;
-  title: string;
-  thumbnailUrl: string;
+  success: boolean;
+  message: string;
+  photo: {
+    id: number;
+    title: string;
+    description: string;
+    url: string;
+  };
 }
 
 function Photospage() {
@@ -12,7 +16,7 @@ function Photospage() {
   const [id, setId] = useState<number>(2);
 
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/photos/${id}`)
+    fetch(`https://api.slingacademy.com/v1/sample-data/photos/${id}`)
       .then((r) => r.json())
       .then(setPhoto);
   }, [id]);
@@ -42,13 +46,12 @@ function Photospage() {
       {photo ? (
         <div style={{ border: "1px solid #eee", borderRadius: 8, padding: 20 }}>
           <img
-            src={photo.thumbnailUrl}
-            alt={photo.title}
+            src={photo.photo.url}
+            alt={photo.photo.title}
             style={{ borderRadius: 4 }}
           />
-          <h2 style={{ fontSize: 16 }}>{photo.title}</h2>
-          <p style={{ color: "#666" }}>Album ID: {photo.albumId}</p>
-          <p style={{ color: "#666" }}>Photo ID: {photo.id}</p>
+          <h2 style={{ fontSize: 16 }}>{photo.photo.title}</h2>
+          <p style={{ color: "#666" }}>Photo ID: {photo.photo.id}</p>
           <hr />
           <p style={{ fontSize: 13, color: "#999" }}>
             Visit <code>/photos/{id}</code> and view source to see injected OG
