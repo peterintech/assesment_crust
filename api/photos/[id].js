@@ -1,0 +1,74 @@
+import fs from "fs";
+import path from "path";
+
+export default async function handler(req, res) {
+  const { id } = req.query;
+
+  try {
+    // Fetch from jsonplaceholder
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/photos/${id}`,
+    );
+
+    if (!response.ok) {
+      return serveFallback(res);
+    }
+
+    const photo = await response.json();
+
+    // Read the built index.html
+    const templatePath = path.resolve(process.cwd(), "dist", "index.html");
+    const template = fs.readFileSync(templatePath, "utf-8");
+
+    // Inject meta tags
+    const metaTags = generateMetaTags(photo);
+    const html = template.replace("<!--ssr-meta-tags-->", metaTags);
+
+    res.setHeader("Content-Type", "text/html");
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
+    res.status(200).send(html);
+  } catch (error) {
+    console.error("SSR Error:", error);
+    return serveFallback(res);
+  }
+}
+
+function serveFallback(res) {
+  const templatePath = path.resolve(process.cwd(), "dist", "index.html");
+  const template = fs.readFileSync(templatePath, "utf-8");
+  res.setHeader("Content-Type", "text/html");
+  res.status(200).send(template);
+}
+
+function generateMetaTags(photo) {
+  const escape = (str) =>
+    String(str ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+  const title = escape(photo.title);
+  const image = escape(photo.url);
+  const thumbnail = escape(photo.thumbnailUrl);
+  const description = `Photo #${photo.id} from Album #${photo.albumId}`;
+
+  return `
+    <title>${title}</title>
+    <meta name="description" content="${description}" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="${title}" />
+    <meta property="og:description" content="${description}" />
+    <meta property="og:image"       content="${image}" />
+    <meta property="og:image:width"  content="600" />
+    <meta property="og:image:height" content="600" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="${title}" />
+    <meta name="twitter:description" content="${description}" />
+    <meta name="twitter:image"       content="${thumbnail}" />
+  `;
+}

@@ -11,5 +11,5 @@ export const CryptoExchangeSchema = z.object({
 });
 
 export const ComingSoonSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address"),
 });
