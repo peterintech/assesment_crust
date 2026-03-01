@@ -1,14 +1,14 @@
 {
   "buildCommand": "vite build",
   "outputDirectory": "dist",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/photos/:id",
-      "destination": "/api/photos/:id"
+      "src": "/photos/(?<id>[^/]+)",
+      "dest": "/api/photos/[id].cjs?id=$id"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
