@@ -4,6 +4,8 @@ const path = require("path");
 module.exports = async function handler(req, res) {
   const { id } = req.query;
 
+  console.log("Function running, id:", id);
+
   try {
     const response = await fetch(
       `https://api.slingacademy.com/v1/sample-data/photos/${id}`,
